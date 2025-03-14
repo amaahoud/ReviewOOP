@@ -1,37 +1,29 @@
-public class tabungan extends rekening{
-    double BungaTahunan;
-
-    public tabungan(String NamaPeilik, String NomorRekening, double Saldo, double BungaTahunan){
-        super(NamaPeilik, NomorRekening, Saldo);
-        this.BungaTahunan = BungaTahunan;
-    }
-
-    public double HitungBunga(int bulan){
-        return Saldo * (BungaTahunan / 100) * (bulan/ 12.0);
-    }
-
-    @Override
-    public void tampilkanInfo(){
-        super.tampilkanInfo();
-        System.out.println("bungatahunan :" + BungaTahunan + "%");
-
-    }
+public class Tabungan extends Rekening {
+     double bungaTahunan; // dalam persen
+     
+     public Tabungan(String namaPemilik, String nomorRekening, double saldo, double bungaTahunan) {
+         super(namaPemilik, nomorRekening, saldo);
+         this.bungaTahunan = bungaTahunan;
+     }
+     
+     public double getBungaTahunan() {
+         return bungaTahunan;
+     }
+     
+     public void setBungaTahunan(double bungaTahunan) {
+         this.bungaTahunan = bungaTahunan;
+     }
+     
+     public double hitungBunga(int bulan) {
+         double bungaBulanan = (bungaTahunan / 100.0) / 12;
+         return saldo * bungaBulanan * bulan;
+     }
+     
+     @Override
+     public void tampilkanInfo() {
+         super.tampilkanInfo();
+         System.out.println("Jenis Rekening: Tabungan");
+         System.out.println("Bunga Tahunan: " + bungaTahunan + "%");
+         System.out.println("Bunga per 1 bulan: " + hitungBunga(1));
+     }
 }
-
-class Giro extends rekening{
-    double limitpenarikan;
-
-    public Giro(String NamaPeilik, String NomorRekening, double Saldo, double BungaTahunan, double limitpenarikan){
-        super(NamaPeilik, NomorRekening, Saldo);
-        this.limitpenarikan = limitpenarikan;
-    }
-
-    @Override
-    public void Tarik(double jumlah){
-        if (jumlah <= Saldo + limitpenarikan){
-            Saldo -= jumlah;
-        }else{
-            System.out.println("julah penarikan limit");
-        }
-    }
-}    
